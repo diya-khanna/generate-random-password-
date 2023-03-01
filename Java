@@ -1,0 +1,63 @@
+/**
+ * Write a description of class RandomPasswords here.
+ *
+ * @author (Diya Khanna)(dk103)
+ * @version (February 8,2023)
+ */
+
+import java.util.Random;
+public class RandomPasswords {
+
+    /**
+     * This method generates a random password of length n, with a vowel in every even location, but never in an odd location.
+     * 
+     * @param n The length of the password to be generated.
+     * @return The generated password.
+     */
+    public static String generateRandomPassword(int n) {
+        StringBuilder password = new StringBuilder();
+        String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        Random random = new Random();
+
+        for (int i = 0; i < n; i++) {
+            char letter;
+            if (isEven(i)) { 
+                do {
+                    letter = alphabet.charAt(random.nextInt(alphabet.length()));
+                } while (!isVowel(letter));
+            } else {
+                do {
+                    letter = alphabet.charAt(random.nextInt(alphabet.length()));
+                } while (isVowel(letter));
+            }
+            password.append(letter);
+        }
+        return password.toString();
+    }
+
+    /**
+     * This method checks if a character is a vowel.
+     * 
+     * @param c The character to be checked.
+     * @return True if the character is a vowel, false otherwise.
+     */
+    private static boolean isVowel(char c) {
+        return c == 'A' || c == 'E' || c == 'I' || c == 'O' || c == 'U';
+    }
+
+    /**
+     * This method checks if a number is even.
+     * 
+     * @param n The number to be checked.
+     * @return True if the number is even, false otherwise.
+     */
+    private static boolean isEven(int n) {
+        return n % 2 == 0;
+    }
+
+    public static void main(String[] args) {
+        for (int i = 4; i <= 8; i++) {
+            System.out.println(generateRandomPassword(i));
+        }
+    }
+}
